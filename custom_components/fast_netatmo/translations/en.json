@@ -1,0 +1,149 @@
+{
+  "config": {
+    "step": {
+      "pick_implementation": {
+        "title": "Pick authentication method",
+        "data": {
+          "implementation": "Application credentials"
+        },
+        "data_description": {
+          "implementation": "The credentials of your own Netatmo app."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Authentication expired for {name}",
+        "description": "Netatmo (fast weather) needs to re-authenticate your Netatmo account."
+      }
+    },
+    "abort": {
+      "already_configured": "This Netatmo account is already configured.",
+      "authorize_url_timeout": "Timeout while generating an authorization URL.",
+      "cannot_connect": "Failed to connect to Netatmo.",
+      "missing_configuration": "The component is not configured. Please follow the documentation.",
+      "missing_credentials": "The integration requires application credentials of your own Netatmo app.",
+      "no_devices_found": "No Netatmo weather station found in this account.",
+      "no_url_available": "No URL available. For information about this error, [check the help section]({docs_url})",
+      "oauth_error": "Received invalid token data.",
+      "oauth_failed": "Error while obtaining access token.",
+      "oauth_implementation_unavailable": "No OAuth2 implementations are currently available.",
+      "oauth_timeout": "Timeout while resolving the OAuth token.",
+      "oauth_unauthorized": "OAuth authorization error while obtaining access token.",
+      "reauth_successful": "Re-authentication was successful.",
+      "user_rejected_authorize": "Account linking rejected: {error}",
+      "wrong_account": "You signed in with a different Netatmo account. Sign in with the account this integration was set up with."
+    },
+    "create_entry": {
+      "default": "Successfully authenticated"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Polling options",
+        "data": {
+          "scan_interval": "Polling interval",
+          "grace_period": "Grace period",
+          "auto_reload": "Reload on module changes"
+        },
+        "data_description": {
+          "scan_interval": "How often to read live values (10–600 s). The main station sends data every few seconds, but CO₂ changes only every 10–40 s. Below 30 s the integration uses more of Netatmo's limit of 500 calls per hour. That limit may be shared with other integrations and apps that use the same Netatmo account, so watch it if you use them.",
+          "grace_period": "How long sensors keep their last value when Netatmo doesn't respond (0–60 min). 0 makes them unavailable at the first failed call.",
+          "auto_reload": "Reload the integration automatically when a module is added to or removed from your station."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absolute pressure"
+      },
+      "gust_angle": {
+        "name": "Gust angle"
+      },
+      "gust_direction": {
+        "name": "Gust direction",
+        "state": {
+          "e": "East",
+          "n": "North",
+          "ne": "Northeast",
+          "nw": "Northwest",
+          "s": "South",
+          "se": "Southeast",
+          "sw": "Southwest",
+          "w": "West"
+        }
+      },
+      "gust_strength": {
+        "name": "Gust strength"
+      },
+      "last_measurement": {
+        "name": "Last measurement"
+      },
+      "noise": {
+        "name": "Noise"
+      },
+      "pressure_trend": {
+        "name": "Pressure trend",
+        "state": {
+          "up": "Rising",
+          "down": "Falling",
+          "stable": "Stable"
+        }
+      },
+      "reachable": {
+        "name": "Reachability"
+      },
+      "rf_strength": {
+        "name": "RF strength",
+        "state": {
+          "very_low": "Very low",
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High",
+          "full": "Full"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Precipitation last hour"
+      },
+      "sum_rain_24": {
+        "name": "Precipitation today"
+      },
+      "temp_trend": {
+        "name": "Temperature trend",
+        "state": {
+          "up": "Rising",
+          "down": "Falling",
+          "stable": "Stable"
+        }
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi strength",
+        "state": {
+          "very_low": "Very low",
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High",
+          "full": "Full"
+        }
+      },
+      "wind_angle": {
+        "name": "Wind angle"
+      },
+      "wind_direction": {
+        "name": "Wind direction",
+        "state": {
+          "e": "East",
+          "n": "North",
+          "ne": "Northeast",
+          "nw": "Northwest",
+          "s": "South",
+          "se": "Southeast",
+          "sw": "Southwest",
+          "w": "West"
+        }
+      }
+    }
+  }
+}

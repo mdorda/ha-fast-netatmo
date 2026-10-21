@@ -1,0 +1,44 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Абсолютний тиск"
+      },
+      "last_measurement": {
+        "name": "Останнє вимірювання"
+      },
+      "pressure_trend": {
+        "state": {
+          "up": "Зростає",
+          "down": "Падає",
+          "stable": "Стабільно"
+        }
+      },
+      "rf_strength": {
+        "state": {
+          "very_low": "Дуже слабкий",
+          "low": "Слабкий",
+          "medium": "Середній",
+          "high": "Сильний",
+          "full": "Максимальний"
+        }
+      },
+      "temp_trend": {
+        "state": {
+          "up": "Зростає",
+          "down": "Падає",
+          "stable": "Стабільно"
+        }
+      },
+      "wifi_strength": {
+        "state": {
+          "very_low": "Дуже слабкий",
+          "low": "Слабкий",
+          "medium": "Середній",
+          "high": "Сильний",
+          "full": "Максимальний"
+        }
+      }
+    }
+  }
+}

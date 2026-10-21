@@ -1,0 +1,21 @@
+# Runs the same checks as CI. Install with: pre-commit install
+# The hooks use the tools from your virtual environment (pip install -r requirements_test.txt).
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format
+        language: system
+        types: [python]
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+        pass_filenames: false

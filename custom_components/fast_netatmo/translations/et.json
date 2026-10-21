@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "Tuuleiili nurk"
+      },
+      "gust_direction": {
+        "name": "Tuuleiili suund",
+        "state": {
+          "e": "Ida",
+          "n": "Põhi",
+          "ne": "Kirre",
+          "nw": "Loe",
+          "s": "Lõuna",
+          "se": "Kagu",
+          "sw": "Edel",
+          "w": "Lääs"
+        }
+      },
+      "gust_strength": {
+        "name": "Tuuleiili tugevus"
+      },
+      "noise": {
+        "name": "Müra"
+      },
+      "pressure_trend": {
+        "name": "Õhurõhu tendents"
+      },
+      "reachable": {
+        "name": "Kättesaadavus"
+      },
+      "rf_strength": {
+        "name": "RF signaali tugevus"
+      },
+      "sum_rain_1": {
+        "name": "Sademeid viimasel tunnil"
+      },
+      "sum_rain_24": {
+        "name": "Sademeid täna"
+      },
+      "temp_trend": {
+        "name": "Temperatuuri trend"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi signaali tugevus"
+      },
+      "wind_angle": {
+        "name": "Tuule nurk"
+      },
+      "wind_direction": {
+        "name": "Tuule suund",
+        "state": {
+          "e": "Ida",
+          "n": "Põhi",
+          "ne": "Kirre",
+          "nw": "Loe",
+          "s": "Lõuna",
+          "se": "Kagu",
+          "sw": "Edel",
+          "w": "Lääs"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "entity": {
+    "sensor": {
+      "rf_strength": {
+        "name": "Јачина на RF"
+      },
+      "wifi_strength": {
+        "name": "Јачина на Wi-Fi"
+      }
+    }
+  }
+}

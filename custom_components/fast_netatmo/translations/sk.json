@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absolútny tlak"
+      },
+      "gust_angle": {
+        "name": "Uhol nárazu"
+      },
+      "gust_direction": {
+        "name": "Smer nárazov",
+        "state": {
+          "e": "Východ",
+          "n": "Sever",
+          "ne": "Severovýchod",
+          "nw": "Severozápad",
+          "s": "Juh",
+          "se": "Juhovýchod",
+          "sw": "Juhozápad",
+          "w": "Západ"
+        }
+      },
+      "gust_strength": {
+        "name": "Sila nárazov"
+      },
+      "last_measurement": {
+        "name": "Posledné meranie"
+      },
+      "noise": {
+        "name": "Šum"
+      },
+      "pressure_trend": {
+        "name": "Trend tlaku",
+        "state": {
+          "up": "Stúpa",
+          "down": "Klesá",
+          "stable": "Stabilný"
+        }
+      },
+      "reachable": {
+        "name": "Dosiahnuteľnosť"
+      },
+      "rf_strength": {
+        "name": "RF sila",
+        "state": {
+          "very_low": "Veľmi nízka",
+          "low": "Nízka",
+          "medium": "Stredná",
+          "high": "Vysoká",
+          "full": "Plná"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Zrážky za poslednú hodinu"
+      },
+      "sum_rain_24": {
+        "name": "Zrážky dnes"
+      },
+      "temp_trend": {
+        "name": "Vývoj teploty",
+        "state": {
+          "up": "Stúpa",
+          "down": "Klesá",
+          "stable": "Stabilný"
+        }
+      },
+      "wifi_strength": {
+        "name": "Sila Wifi",
+        "state": {
+          "very_low": "Veľmi nízka",
+          "low": "Nízka",
+          "medium": "Stredná",
+          "high": "Vysoká",
+          "full": "Plná"
+        }
+      },
+      "wind_angle": {
+        "name": "Uhol vetra"
+      },
+      "wind_direction": {
+        "name": "Smer vetra",
+        "state": {
+          "e": "Východ",
+          "n": "Sever",
+          "ne": "Severovýchod",
+          "nw": "Severozápad",
+          "s": "Juh",
+          "se": "Juhovýchod",
+          "sw": "Juhozápad",
+          "w": "Západ"
+        }
+      }
+    }
+  }
+}

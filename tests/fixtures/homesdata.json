@@ -1,0 +1,73 @@
+{
+  "body": {
+    "homes": [
+      {
+        "id": "5f0000000000000000000002",
+        "name": "My Home",
+        "altitude": 35,
+        "coordinates": [
+          2.35,
+          48.85
+        ],
+        "country": "FR",
+        "timezone": "Europe/Paris",
+        "rooms": [
+          {
+            "id": "1000000001",
+            "name": "Balcony",
+            "type": "custom"
+          },
+          {
+            "id": "1000000002",
+            "name": "Living room",
+            "type": "custom",
+            "module_ids": [
+              "70:ee:50:00:00:01"
+            ]
+          },
+          {
+            "id": "1000000003",
+            "name": "Outdoor",
+            "type": "outdoor",
+            "module_ids": [
+              "02:00:00:00:00:01"
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "id": "70:ee:50:00:00:01",
+            "type": "NAMain",
+            "name": "Weather Station",
+            "setup_date": 1766648289,
+            "room_id": "1000000002",
+            "modules_bridged": [
+              "02:00:00:00:00:01"
+            ]
+          },
+          {
+            "id": "02:00:00:00:00:01",
+            "type": "NAModule1",
+            "name": "Outdoor Module",
+            "setup_date": 1766648289,
+            "room_id": "1000000003",
+            "bridge": "70:ee:50:00:00:01"
+          }
+        ]
+      }
+    ],
+    "user": {
+      "email": "user@example.com",
+      "language": "en-US",
+      "locale": "en-US",
+      "feel_like_algorithm": 0,
+      "unit_pressure": 0,
+      "unit_system": 0,
+      "unit_wind": 0,
+      "id": "5f0000000000000000000001"
+    }
+  },
+  "status": "ok",
+  "time_exec": 0.011811971664428711,
+  "time_server": 1792605717
+}

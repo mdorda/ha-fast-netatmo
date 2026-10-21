@@ -1,0 +1,38 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_direction": {
+        "state": {
+          "e": "Est",
+          "n": "Nord",
+          "s": "Sud",
+          "w": "Oest"
+        }
+      },
+      "noise": {
+        "name": "Soroll"
+      },
+      "sum_rain_1": {
+        "name": "Precipitació última hora"
+      },
+      "sum_rain_24": {
+        "name": "Precipitació avui"
+      },
+      "temp_trend": {
+        "name": "Tendència de temperatura"
+      },
+      "wind_angle": {
+        "name": "Angle del vent"
+      },
+      "wind_direction": {
+        "name": "Direcció del vent",
+        "state": {
+          "e": "Est",
+          "n": "Nord",
+          "s": "Sud",
+          "w": "Oest"
+        }
+      }
+    }
+  }
+}

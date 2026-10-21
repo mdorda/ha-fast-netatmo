@@ -1,0 +1,86 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  hacs:
+    name: HACS validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hacs/action@main
+        with:
+          category: integration
+
+  hassfest:
+    name: Hassfest validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: home-assistant/actions/hassfest@master
+
+  lint:
+    name: Lint and typing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements_test.txt
+      - run: pip install -r requirements_test.txt
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy
+
+  changelog:
+    name: Version and changelog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Manifest version has a CHANGELOG section
+        run: |
+          version=$(jq -r .version custom_components/fast_netatmo/manifest.json)
+          grep -q "^## \[${version}\] - " CHANGELOG.md \
+            || { echo "::error::CHANGELOG.md has no section for ${version}"; exit 1; }
+          grep -q "^\[${version}\]: " CHANGELOG.md \
+            || { echo "::error::CHANGELOG.md has no link for ${version}"; exit 1; }
+
+  tests:
+    name: Tests (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: minimum Home Assistant
+            requirements: requirements_test.txt
+          - name: latest Home Assistant
+            requirements: latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements_test.txt
+      - name: Install minimum versions
+        if: matrix.requirements != 'latest'
+        run: pip install -r requirements_test.txt
+      - name: Install latest versions
+        if: matrix.requirements == 'latest'
+        run: pip install --upgrade pytest-homeassistant-custom-component pytest-cov
+      - name: Home Assistant version
+        run: python -c "from homeassistant.const import __version__; print(__version__)"
+      - name: Run tests (coverage must be at least 95 %)
+        run: pytest --cov --cov-report=term-missing

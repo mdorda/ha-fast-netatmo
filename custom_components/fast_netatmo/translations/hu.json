@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Abszolút légnyomás"
+      },
+      "gust_angle": {
+        "name": "Széllökés szöge"
+      },
+      "gust_direction": {
+        "name": "Széllökés iránya",
+        "state": {
+          "e": "Kelet",
+          "n": "Észak",
+          "ne": "Északkelet",
+          "nw": "Északnyugat",
+          "s": "Dél",
+          "se": "Délkelet",
+          "sw": "Délnyugat",
+          "w": "Nyugat"
+        }
+      },
+      "gust_strength": {
+        "name": "Széllökés erőssége"
+      },
+      "last_measurement": {
+        "name": "Utolsó mérés"
+      },
+      "noise": {
+        "name": "Zaj"
+      },
+      "pressure_trend": {
+        "name": "Nyomás tendencia",
+        "state": {
+          "up": "Emelkedő",
+          "down": "Csökkenő",
+          "stable": "Stabil"
+        }
+      },
+      "reachable": {
+        "name": "Elérhetőség"
+      },
+      "rf_strength": {
+        "name": "RF jelerősség",
+        "state": {
+          "very_low": "Nagyon gyenge",
+          "low": "Gyenge",
+          "medium": "Közepes",
+          "high": "Erős",
+          "full": "Teljes"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Csapadék az elmúlt órában"
+      },
+      "sum_rain_24": {
+        "name": "Csapadék ma"
+      },
+      "temp_trend": {
+        "name": "Hőmérsékleti trend",
+        "state": {
+          "up": "Emelkedő",
+          "down": "Csökkenő",
+          "stable": "Stabil"
+        }
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi jelerősség",
+        "state": {
+          "very_low": "Nagyon gyenge",
+          "low": "Gyenge",
+          "medium": "Közepes",
+          "high": "Erős",
+          "full": "Teljes"
+        }
+      },
+      "wind_angle": {
+        "name": "Szélirány szöge"
+      },
+      "wind_direction": {
+        "name": "Szélirány",
+        "state": {
+          "e": "Kelet",
+          "n": "Észak",
+          "ne": "Északkelet",
+          "nw": "Északnyugat",
+          "s": "Dél",
+          "se": "Délkelet",
+          "sw": "Délnyugat",
+          "w": "Nyugat"
+        }
+      }
+    }
+  }
+}

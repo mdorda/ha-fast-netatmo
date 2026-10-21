@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "陣風風向角"
+      },
+      "gust_direction": {
+        "name": "陣風風向",
+        "state": {
+          "e": "東風",
+          "n": "北風",
+          "ne": "東北風",
+          "nw": "西北風",
+          "s": "南風",
+          "se": "東南風",
+          "sw": "西南風",
+          "w": "西風"
+        }
+      },
+      "gust_strength": {
+        "name": "陣風強度"
+      },
+      "noise": {
+        "name": "噪音"
+      },
+      "pressure_trend": {
+        "name": "壓力趨勢"
+      },
+      "reachable": {
+        "name": "可達性"
+      },
+      "rf_strength": {
+        "name": "無線電強度"
+      },
+      "sum_rain_1": {
+        "name": "前一小時降雨"
+      },
+      "sum_rain_24": {
+        "name": "今日降雨"
+      },
+      "temp_trend": {
+        "name": "溫度趨勢"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi 強度"
+      },
+      "wind_angle": {
+        "name": "風向角"
+      },
+      "wind_direction": {
+        "name": "風向",
+        "state": {
+          "e": "東風",
+          "n": "北風",
+          "ne": "東北風",
+          "nw": "西北風",
+          "s": "南風",
+          "se": "東南風",
+          "sw": "西南風",
+          "w": "西風"
+        }
+      }
+    }
+  }
+}

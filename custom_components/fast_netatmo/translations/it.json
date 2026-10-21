@@ -1,0 +1,71 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Pressione assoluta"
+      },
+      "gust_direction": {
+        "state": {
+          "e": "Est",
+          "n": "Nord",
+          "s": "Sud",
+          "w": "Ovest"
+        }
+      },
+      "last_measurement": {
+        "name": "Ultima misurazione"
+      },
+      "pressure_trend": {
+        "state": {
+          "up": "In aumento",
+          "down": "In calo",
+          "stable": "Stabile"
+        }
+      },
+      "rf_strength": {
+        "state": {
+          "very_low": "Molto bassa",
+          "low": "Bassa",
+          "medium": "Media",
+          "high": "Alta",
+          "full": "Massima"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Precipitazioni ultima ora"
+      },
+      "sum_rain_24": {
+        "name": "Precipitazioni oggi"
+      },
+      "temp_trend": {
+        "name": "Andamento della temperatura",
+        "state": {
+          "up": "In aumento",
+          "down": "In calo",
+          "stable": "Stabile"
+        }
+      },
+      "wifi_strength": {
+        "state": {
+          "very_low": "Molto bassa",
+          "low": "Bassa",
+          "medium": "Media",
+          "high": "Alta",
+          "full": "Massima"
+        }
+      },
+      "wind_angle": {
+        "name": "Angolo del vento"
+      },
+      "wind_direction": {
+        "name": "Direzione del vento",
+        "state": {
+          "e": "Est",
+          "n": "Nord",
+          "s": "Sud",
+          "w": "Ovest"
+        }
+      }
+    }
+  }
+}

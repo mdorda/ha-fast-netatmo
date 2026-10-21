@@ -1,0 +1,13 @@
+{
+  "domain": "fast_netatmo",
+  "name": "Netatmo (fast weather)",
+  "codeowners": ["@mdorda"],
+  "config_flow": true,
+  "dependencies": ["application_credentials"],
+  "documentation": "https://github.com/mdorda/ha-fast-netatmo",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/mdorda/ha-fast-netatmo/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

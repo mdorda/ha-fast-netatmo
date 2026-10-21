@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "돌풍 각도"
+      },
+      "gust_direction": {
+        "name": "돌풍 방향",
+        "state": {
+          "e": "동쪽",
+          "n": "북쪽",
+          "ne": "북동",
+          "nw": "북서",
+          "s": "남쪽",
+          "se": "남동",
+          "sw": "남서",
+          "w": "서쪽"
+        }
+      },
+      "gust_strength": {
+        "name": "돌풍 강도"
+      },
+      "noise": {
+        "name": "소음"
+      },
+      "pressure_trend": {
+        "name": "압력 추세"
+      },
+      "reachable": {
+        "name": "접근성"
+      },
+      "rf_strength": {
+        "name": "RF 강도"
+      },
+      "sum_rain_1": {
+        "name": "지난 한 시간 동안 강수량"
+      },
+      "sum_rain_24": {
+        "name": "오늘 강수량"
+      },
+      "temp_trend": {
+        "name": "기온 변화 추이"
+      },
+      "wifi_strength": {
+        "name": "와이파이 신호 강도"
+      },
+      "wind_angle": {
+        "name": "풍향각"
+      },
+      "wind_direction": {
+        "name": "풍향",
+        "state": {
+          "e": "동쪽",
+          "n": "북쪽",
+          "ne": "북동",
+          "nw": "북서",
+          "s": "남쪽",
+          "se": "남동",
+          "sw": "남서",
+          "w": "서쪽"
+        }
+      }
+    }
+  }
+}

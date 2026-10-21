@@ -1,0 +1,73 @@
+[project]
+name = "ha-fast-netatmo"
+version = "1.0.0"
+description = "Home Assistant integration for the Netatmo Smart Weather Station with fast updates"
+requires-python = ">=3.14"
+license = "Apache-2.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "--strict-markers"
+
+[tool.coverage.run]
+source = ["custom_components.fast_netatmo"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "A",    # builtins
+    "ASYNC",
+    "B",    # bugbear
+    "C4",   # comprehensions
+    "D",    # docstrings
+    "E", "W", "F",
+    "I",    # isort
+    "LOG",
+    "PERF",
+    "PIE",
+    "PL",   # pylint
+    "PT",   # pytest style
+    "RET",
+    "RUF",
+    "S",    # bandit
+    "SIM",
+    "UP",
+]
+ignore = [
+    "D202",    # blank line after function docstring
+    "D203",    # conflicts with D211
+    "D213",    # conflicts with D212
+    "PLR0913", # too many arguments
+    "PLR2004", # magic values
+    "E501",    # handled by the formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D100", "D103", "D104", "S101", "S105", "S106", "PLR0915", "PLR0917"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components.fast_netatmo"]
+combine-as-imports = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+warn_unreachable = true
+disallow_any_generics = false
+packages = ["custom_components.fast_netatmo"]

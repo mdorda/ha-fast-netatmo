@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "Uillinn séideán"
+      },
+      "gust_direction": {
+        "name": "Treo na séideadh",
+        "state": {
+          "e": "Oirthear",
+          "n": "Tuaisceart",
+          "ne": "Oirthuaisceart",
+          "nw": "Iarthuaisceart",
+          "s": "Theas",
+          "se": "Oirdheisceart",
+          "sw": "Iardheisceart",
+          "w": "Thiar"
+        }
+      },
+      "gust_strength": {
+        "name": "Neart an tséide"
+      },
+      "noise": {
+        "name": "Torann"
+      },
+      "pressure_trend": {
+        "name": "Treocht brú"
+      },
+      "reachable": {
+        "name": "Inrochtaineacht"
+      },
+      "rf_strength": {
+        "name": "Neart RF"
+      },
+      "sum_rain_1": {
+        "name": "Deascadh an uair dheireanach"
+      },
+      "sum_rain_24": {
+        "name": "Deascadh inniu"
+      },
+      "temp_trend": {
+        "name": "Treocht teochta"
+      },
+      "wifi_strength": {
+        "name": "Neart Wi-Fi"
+      },
+      "wind_angle": {
+        "name": "Uillinn gaoithe"
+      },
+      "wind_direction": {
+        "name": "Treo na gaoithe",
+        "state": {
+          "e": "Oirthear",
+          "n": "Tuaisceart",
+          "ne": "Oirthuaisceart",
+          "nw": "Iarthuaisceart",
+          "s": "Theas",
+          "se": "Oirdheisceart",
+          "sw": "Iardheisceart",
+          "w": "Thiar"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "entity": {
+    "sensor": {
+      "wifi_strength": {
+        "name": "Wifi"
+      }
+    }
+  }
+}

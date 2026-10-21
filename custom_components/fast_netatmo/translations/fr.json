@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Pression absolue"
+      },
+      "gust_angle": {
+        "name": "Angle des rafales"
+      },
+      "gust_direction": {
+        "name": "Direction des rafales",
+        "state": {
+          "e": "Est",
+          "n": "Nord",
+          "ne": "Nord-est",
+          "nw": "Nord-ouest",
+          "s": "Sud",
+          "se": "Sud-est",
+          "sw": "Sud-ouest",
+          "w": "Ouest"
+        }
+      },
+      "gust_strength": {
+        "name": "Force des rafales"
+      },
+      "last_measurement": {
+        "name": "Dernière mesure"
+      },
+      "noise": {
+        "name": "Bruit"
+      },
+      "pressure_trend": {
+        "name": "Tendance de la pression atmosphérique",
+        "state": {
+          "up": "En hausse",
+          "down": "En baisse",
+          "stable": "Stable"
+        }
+      },
+      "reachable": {
+        "name": "Accessibilité"
+      },
+      "rf_strength": {
+        "name": "Puissance RF",
+        "state": {
+          "very_low": "Très faible",
+          "low": "Faible",
+          "medium": "Moyen",
+          "high": "Élevé",
+          "full": "Maximal"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Précipitations dans l'heure précédente"
+      },
+      "sum_rain_24": {
+        "name": "Précipitations aujourd'hui"
+      },
+      "temp_trend": {
+        "name": "Tendance de la température",
+        "state": {
+          "up": "En hausse",
+          "down": "En baisse",
+          "stable": "Stable"
+        }
+      },
+      "wifi_strength": {
+        "name": "Puissance du Wi-Fi",
+        "state": {
+          "very_low": "Très faible",
+          "low": "Faible",
+          "medium": "Moyen",
+          "high": "Élevé",
+          "full": "Maximal"
+        }
+      },
+      "wind_angle": {
+        "name": "Angle du vent"
+      },
+      "wind_direction": {
+        "name": "Direction du vent",
+        "state": {
+          "e": "Est",
+          "n": "Nord",
+          "ne": "Nord-est",
+          "nw": "Nord-ouest",
+          "s": "Sud",
+          "se": "Sud-est",
+          "sw": "Sud-ouest",
+          "w": "Ouest"
+        }
+      }
+    }
+  }
+}

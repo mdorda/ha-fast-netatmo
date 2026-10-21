@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Pressão absoluta"
+      },
+      "gust_angle": {
+        "name": "Ângulo da rajada"
+      },
+      "gust_direction": {
+        "name": "Direção da rajada",
+        "state": {
+          "e": "Este",
+          "n": "Norte",
+          "ne": "Nordeste",
+          "nw": "Noroeste",
+          "s": "Sul",
+          "se": "Sudeste",
+          "sw": "Sudoeste",
+          "w": "Oeste"
+        }
+      },
+      "gust_strength": {
+        "name": "Força da rajada"
+      },
+      "last_measurement": {
+        "name": "Última medição"
+      },
+      "noise": {
+        "name": "Ruído"
+      },
+      "pressure_trend": {
+        "name": "Tendência da pressão",
+        "state": {
+          "up": "A subir",
+          "down": "A descer",
+          "stable": "Estável"
+        }
+      },
+      "reachable": {
+        "name": "Acessibilidade"
+      },
+      "rf_strength": {
+        "name": "Força do RF",
+        "state": {
+          "very_low": "Muito baixo",
+          "low": "Baixo",
+          "medium": "Médio",
+          "high": "Alto",
+          "full": "Máximo"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Precipitação última hora"
+      },
+      "sum_rain_24": {
+        "name": "Precipitação hoje"
+      },
+      "temp_trend": {
+        "name": "Tendência da temperatura",
+        "state": {
+          "up": "A subir",
+          "down": "A descer",
+          "stable": "Estável"
+        }
+      },
+      "wifi_strength": {
+        "name": "Força do Wi-Fi",
+        "state": {
+          "very_low": "Muito baixo",
+          "low": "Baixo",
+          "medium": "Médio",
+          "high": "Alto",
+          "full": "Máximo"
+        }
+      },
+      "wind_angle": {
+        "name": "Ângulo do vento"
+      },
+      "wind_direction": {
+        "name": "Direção do vento",
+        "state": {
+          "e": "Este",
+          "n": "Norte",
+          "ne": "Nordeste",
+          "nw": "Noroeste",
+          "s": "Sul",
+          "se": "Sudeste",
+          "sw": "Sudoeste",
+          "w": "Oeste"
+        }
+      }
+    }
+  }
+}

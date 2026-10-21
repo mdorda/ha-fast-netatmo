@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absolute luchtdruk"
+      },
+      "gust_angle": {
+        "name": "Windstoot hoek"
+      },
+      "gust_direction": {
+        "name": "Windstoot richting",
+        "state": {
+          "e": "Oosten",
+          "n": "Noorden",
+          "ne": "Noordoosten",
+          "nw": "Noordwesten",
+          "s": "Zuiden",
+          "se": "Zuidoosten",
+          "sw": "Zuidwesten",
+          "w": "West"
+        }
+      },
+      "gust_strength": {
+        "name": "Windstoot sterkte"
+      },
+      "last_measurement": {
+        "name": "Laatste meting"
+      },
+      "noise": {
+        "name": "Lawaai"
+      },
+      "pressure_trend": {
+        "name": "Atmosferische druk trend",
+        "state": {
+          "up": "Stijgend",
+          "down": "Dalend",
+          "stable": "Stabiel"
+        }
+      },
+      "reachable": {
+        "name": "Bereikbaarheid"
+      },
+      "rf_strength": {
+        "name": "RF signaalsterkte",
+        "state": {
+          "very_low": "Zeer laag",
+          "low": "Laag",
+          "medium": "Gemiddeld",
+          "high": "Hoog",
+          "full": "Volledig"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Neerslag afgelopen uur"
+      },
+      "sum_rain_24": {
+        "name": "Neerslag vandaag"
+      },
+      "temp_trend": {
+        "name": "Temperatuurtrend",
+        "state": {
+          "up": "Stijgend",
+          "down": "Dalend",
+          "stable": "Stabiel"
+        }
+      },
+      "wifi_strength": {
+        "name": "Wifi-signaalsterkte",
+        "state": {
+          "very_low": "Zeer laag",
+          "low": "Laag",
+          "medium": "Gemiddeld",
+          "high": "Hoog",
+          "full": "Volledig"
+        }
+      },
+      "wind_angle": {
+        "name": "Windhoek"
+      },
+      "wind_direction": {
+        "name": "Windrichting",
+        "state": {
+          "e": "Oosten",
+          "n": "Noorden",
+          "ne": "Noordoosten",
+          "nw": "Noordwesten",
+          "s": "Zuiden",
+          "se": "Zuidoosten",
+          "sw": "Zuidwesten",
+          "w": "West"
+        }
+      }
+    }
+  }
+}

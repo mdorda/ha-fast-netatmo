@@ -1,0 +1,44 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absolutt lufttrykk"
+      },
+      "last_measurement": {
+        "name": "Siste måling"
+      },
+      "pressure_trend": {
+        "state": {
+          "up": "Stigende",
+          "down": "Synkende",
+          "stable": "Stabil"
+        }
+      },
+      "rf_strength": {
+        "state": {
+          "very_low": "Svært lav",
+          "low": "Lav",
+          "medium": "Middels",
+          "high": "Høy",
+          "full": "Full"
+        }
+      },
+      "temp_trend": {
+        "state": {
+          "up": "Stigende",
+          "down": "Synkende",
+          "stable": "Stabil"
+        }
+      },
+      "wifi_strength": {
+        "state": {
+          "very_low": "Svært lav",
+          "low": "Lav",
+          "medium": "Middels",
+          "high": "Høy",
+          "full": "Full"
+        }
+      }
+    }
+  }
+}

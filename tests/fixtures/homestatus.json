@@ -1,0 +1,40 @@
+{
+  "status": "ok",
+  "time_server": 1792605718,
+  "body": {
+    "home": {
+      "id": "5f0000000000000000000002",
+      "modules": [
+        {
+          "id": "70:ee:50:00:00:01",
+          "type": "NAMain",
+          "firmware_revision": 300,
+          "wifi_state": "full",
+          "wifi_strength": 51,
+          "ts": 1792605714,
+          "temperature": 23.6,
+          "co2": 707,
+          "humidity": 45,
+          "noise": 51,
+          "pressure": 1008.6,
+          "absolute_pressure": 980.7
+        },
+        {
+          "id": "02:00:00:00:00:01",
+          "type": "NAModule1",
+          "battery_state": "high",
+          "battery_level": 5604,
+          "firmware_revision": 53,
+          "rf_state": "low",
+          "rf_strength": 86,
+          "last_seen": 1792605716,
+          "reachable": true,
+          "bridge": "70:ee:50:00:00:01",
+          "ts": 1792605460,
+          "temperature": 12.1,
+          "humidity": 82
+        }
+      ]
+    }
+  }
+}

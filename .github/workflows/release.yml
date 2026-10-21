@@ -1,0 +1,72 @@
+name: Release
+
+# Run by hand on main: Actions -> Release -> Run workflow.
+# It reruns every check, then tags the commit and publishes a GitHub release with the
+# notes from CHANGELOG.md. Nothing is published if any step fails.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/validate.yml
+
+  release:
+    name: Tag and publish
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Read version
+        id: version
+        run: |
+          version=$(jq -r .version custom_components/fast_netatmo/manifest.json)
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] \
+            || { echo "::error::Version '$version' is not X.Y.Z"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Tag must not exist yet
+        run: |
+          if git rev-parse -q --verify "refs/tags/v${{ steps.version.outputs.version }}"; then
+            echo "::error::Tag v${{ steps.version.outputs.version }} already exists. Bump the version first."
+            exit 1
+          fi
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          awk -v v="$version" '
+            $0 ~ "^## \\[" v "\\] - " { found = 1; next }
+            found && /^## \[/ { exit }
+            found && /^\[[^]]+\]: / { exit }
+            found { print }
+          ' CHANGELOG.md > notes.md
+          if ! grep -q '[^[:space:]]' notes.md; then
+            echo "::error::CHANGELOG.md has no notes for $version"
+            exit 1
+          fi
+          cat notes.md
+
+      - name: Create tag and release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          gh release create "v$version" \
+            --target "$GITHUB_SHA" \
+            --title "v$version" \
+            --notes-file notes.md

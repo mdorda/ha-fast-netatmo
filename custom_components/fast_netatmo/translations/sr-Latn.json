@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "Ugao udara vetra"
+      },
+      "gust_direction": {
+        "name": "Smer udara vetra",
+        "state": {
+          "e": "Istok",
+          "n": "Sever",
+          "ne": "Severoistok",
+          "nw": "Severozapad",
+          "s": "Jug",
+          "se": "Jugoistok",
+          "sw": "Jugozapad",
+          "w": "Zapad"
+        }
+      },
+      "gust_strength": {
+        "name": "Jačina udara vetra"
+      },
+      "noise": {
+        "name": "Buka"
+      },
+      "pressure_trend": {
+        "name": "Trend pritiska"
+      },
+      "reachable": {
+        "name": "Dostupnost"
+      },
+      "rf_strength": {
+        "name": "Jačina RF signala"
+      },
+      "sum_rain_1": {
+        "name": "Padavine u poslednjem satu"
+      },
+      "sum_rain_24": {
+        "name": "Padavine danas"
+      },
+      "temp_trend": {
+        "name": "Trend temperature"
+      },
+      "wifi_strength": {
+        "name": "Jačina Wi‑Fi signala"
+      },
+      "wind_angle": {
+        "name": "Ugao vetra"
+      },
+      "wind_direction": {
+        "name": "Smer vetra",
+        "state": {
+          "e": "Istok",
+          "n": "Sever",
+          "ne": "Severoistok",
+          "nw": "Severozapad",
+          "s": "Jug",
+          "se": "Jugoistok",
+          "sw": "Jugozapad",
+          "w": "Zapad"
+        }
+      }
+    }
+  }
+}

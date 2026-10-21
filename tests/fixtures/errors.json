@@ -1,0 +1,29 @@
+{
+  "invalid_token": {
+    "status": 403,
+    "body": {
+      "error": {
+        "code": 2,
+        "message": "Invalid access token"
+      }
+    }
+  },
+  "unknown_home": {
+    "status": 400,
+    "body": {
+      "error": {
+        "code": 21,
+        "message": "Invalid home_id"
+      }
+    }
+  },
+  "missing_home_id": {
+    "status": 400,
+    "body": {
+      "error": {
+        "code": 10,
+        "message": "Missing home_id"
+      }
+    }
+  }
+}

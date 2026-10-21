@@ -1,0 +1,44 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Ciśnienie bezwzględne"
+      },
+      "last_measurement": {
+        "name": "Ostatni pomiar"
+      },
+      "pressure_trend": {
+        "state": {
+          "up": "Rośnie",
+          "down": "Spada",
+          "stable": "Stabilne"
+        }
+      },
+      "rf_strength": {
+        "state": {
+          "very_low": "Bardzo słaby",
+          "low": "Słaby",
+          "medium": "Średni",
+          "high": "Wysoki",
+          "full": "Pełny"
+        }
+      },
+      "temp_trend": {
+        "state": {
+          "up": "Rośnie",
+          "down": "Spada",
+          "stable": "Stabilne"
+        }
+      },
+      "wifi_strength": {
+        "state": {
+          "very_low": "Bardzo słaby",
+          "low": "Słaby",
+          "medium": "Średni",
+          "high": "Wysoki",
+          "full": "Pełny"
+        }
+      }
+    }
+  }
+}

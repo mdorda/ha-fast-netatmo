@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "Gūsio kampas"
+      },
+      "gust_direction": {
+        "name": "Gūsio kryptis",
+        "state": {
+          "e": "Rytai",
+          "n": "Šiaurė",
+          "ne": "Šiaurės rytai",
+          "nw": "Šiaurės vakarai",
+          "s": "Pietūs",
+          "se": "Pietryčiai",
+          "sw": "Pietvakariai",
+          "w": "Vakarai"
+        }
+      },
+      "gust_strength": {
+        "name": "Gūsnio stiprumas"
+      },
+      "noise": {
+        "name": "Triukšmas"
+      },
+      "pressure_trend": {
+        "name": "Slėgio tendencija"
+      },
+      "reachable": {
+        "name": "Pasiekiamumas"
+      },
+      "rf_strength": {
+        "name": "RF stiprumas"
+      },
+      "sum_rain_1": {
+        "name": "Krituliai paskutinę valandą"
+      },
+      "sum_rain_24": {
+        "name": "Krituliai šiandien"
+      },
+      "temp_trend": {
+        "name": "Temperatūros tendencija"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi stiprumas"
+      },
+      "wind_angle": {
+        "name": "Vėjo kampas"
+      },
+      "wind_direction": {
+        "name": "Vėjo kryptis",
+        "state": {
+          "e": "Rytai",
+          "n": "Šiaurė",
+          "ne": "Šiaurės rytai",
+          "nw": "Šiaurės vakarai",
+          "s": "Pietūs",
+          "se": "Pietryčiai",
+          "sw": "Pietvakariai",
+          "w": "Vakarai"
+        }
+      }
+    }
+  }
+}

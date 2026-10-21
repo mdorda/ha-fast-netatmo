@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- Netatmo (fast weather): a weather station and its outdoor module (aluminium
+       cylinders with a flat cap), with speed lines. Dark-theme variant of icon.svg; source of dark_icon.png / dark_icon@2x.png.
+       -->
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#B4BECA"/>
+      <stop offset="0.35" stop-color="#E6EBF1"/>
+      <stop offset="0.55" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#8D99A8"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C3CCD6"/>
+      <stop offset="0.5" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#AAB4C0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="148" cy="220" rx="96" ry="11" fill="#000000" opacity="0.4"/>
+  <g stroke="#38BDF8" stroke-width="13" stroke-linecap="round">
+    <line x1="14" y1="96" x2="54" y2="96"/>
+    <line x1="26" y1="130" x2="54" y2="130"/>
+    <line x1="38" y1="164" x2="54" y2="164"/>
+  </g>
+  <g stroke="#E2E8F0" stroke-width="5" stroke-linejoin="round">
+    <!-- Station: body, groove under the cap, cap top, vertical line -->
+    <path d="M72 46 V206 A36 10 0 0 0 144 206 V46 Z" fill="url(#metal)"/>
+    <path d="M72 62 A36 10 0 0 0 144 62" fill="none" stroke-width="3" opacity="0.7"/>
+    <ellipse cx="108" cy="46" rx="36" ry="10" fill="url(#cap)"/>
+    <line x1="108" y1="76" x2="108" y2="204" stroke="#64748B" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Outdoor module -->
+    <path d="M162 116 V206 A27 8 0 0 0 216 206 V116 Z" fill="url(#metal)"/>
+    <path d="M162 129 A27 8 0 0 0 216 129" fill="none" stroke-width="3" opacity="0.7"/>
+    <ellipse cx="189" cy="116" rx="27" ry="8" fill="url(#cap)"/>
+    <line x1="189" y1="142" x2="189" y2="204" stroke="#64748B" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+</svg>

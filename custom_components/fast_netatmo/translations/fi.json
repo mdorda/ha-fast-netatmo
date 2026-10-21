@@ -1,0 +1,85 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absoluuttinen ilmanpaine"
+      },
+      "gust_angle": {
+        "name": "Puuskan kulma"
+      },
+      "gust_direction": {
+        "name": "Puuskan suunta",
+        "state": {
+          "e": "Itä",
+          "n": "Pohjoinen",
+          "s": "Etelä",
+          "w": "Länsi"
+        }
+      },
+      "gust_strength": {
+        "name": "Puuskan voimakkuus"
+      },
+      "last_measurement": {
+        "name": "Viimeisin mittaus"
+      },
+      "noise": {
+        "name": "Melu"
+      },
+      "pressure_trend": {
+        "name": "Paineen trendi",
+        "state": {
+          "up": "Nouseva",
+          "down": "Laskeva",
+          "stable": "Vakaa"
+        }
+      },
+      "reachable": {
+        "name": "Saavutettavuus"
+      },
+      "rf_strength": {
+        "state": {
+          "very_low": "Erittäin heikko",
+          "low": "Heikko",
+          "medium": "Keskitaso",
+          "high": "Hyvä",
+          "full": "Täysi"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Sademäärä viimeisen tunnin aikana"
+      },
+      "sum_rain_24": {
+        "name": "Sademäärä tänään"
+      },
+      "temp_trend": {
+        "name": "Lämpötilan trendi",
+        "state": {
+          "up": "Nouseva",
+          "down": "Laskeva",
+          "stable": "Vakaa"
+        }
+      },
+      "wifi_strength": {
+        "state": {
+          "very_low": "Erittäin heikko",
+          "low": "Heikko",
+          "medium": "Keskitaso",
+          "high": "Hyvä",
+          "full": "Täysi"
+        }
+      },
+      "wind_angle": {
+        "name": "Tuulen kulma"
+      },
+      "wind_direction": {
+        "name": "Tuulen suunta",
+        "state": {
+          "e": "Itä",
+          "n": "Pohjoinen",
+          "s": "Etelä",
+          "w": "Länsi"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "config": {
+    "step": {
+      "pick_implementation": {
+        "title": "Vyberte způsob ověření",
+        "data": {
+          "implementation": "Přihlašovací údaje aplikace"
+        },
+        "data_description": {
+          "implementation": "Přihlašovací údaje vaší vlastní Netatmo aplikace."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Platnost ověření pro {name} vypršela",
+        "description": "Netatmo (fast weather) potřebuje znovu ověřit váš účet Netatmo."
+      }
+    },
+    "abort": {
+      "already_configured": "Tento účet Netatmo je již nastaven.",
+      "authorize_url_timeout": "Při generování autorizační URL vypršel časový limit.",
+      "cannot_connect": "Nepodařilo se připojit k Netatmo.",
+      "missing_configuration": "Komponenta není nastavena. Postupujte podle dokumentace.",
+      "missing_credentials": "Integrace vyžaduje přihlašovací údaje vaší vlastní Netatmo aplikace.",
+      "no_devices_found": "V tomto účtu nebyla nalezena žádná meteostanice Netatmo.",
+      "no_url_available": "Není k dispozici žádná URL. Informace o této chybě najdete [v nápovědě]({docs_url}).",
+      "oauth_error": "Přijata neplatná data tokenu.",
+      "oauth_failed": "Chyba při získávání přístupového tokenu.",
+      "oauth_implementation_unavailable": "Momentálně není k dispozici žádná implementace OAuth2.",
+      "oauth_timeout": "Při získávání tokenu OAuth vypršel časový limit.",
+      "oauth_unauthorized": "Chyba autorizace OAuth při získávání přístupového tokenu.",
+      "reauth_successful": "Opětovné ověření proběhlo úspěšně.",
+      "user_rejected_authorize": "Propojení účtu bylo odmítnuto: {error}",
+      "wrong_account": "Přihlásili jste se jiným účtem Netatmo. Přihlaste se účtem, se kterým byla integrace nastavena."
+    },
+    "create_entry": {
+      "default": "Úspěšně ověřeno"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Nastavení dotazování",
+        "data": {
+          "scan_interval": "Interval dotazování",
+          "grace_period": "Ochranná doba",
+          "auto_reload": "Znovu načíst při změně modulů"
+        },
+        "data_description": {
+          "scan_interval": "Jak často číst aktuální hodnoty (10–600 s). Hlavní stanice posílá data každých pár sekund, ale CO₂ se mění jen jednou za 10–40 s. Pod 30 s spotřebuje integrace víc z limitu Netatmo 500 volání za hodinu. Tento limit může být sdílený s dalšími integracemi a aplikacemi, které používají stejný účet Netatmo, proto ho při jejich používání hlídejte.",
+          "grace_period": "Jak dlouho si senzory drží poslední hodnotu, když Netatmo neodpovídá (0–60 min). Při 0 jsou nedostupné hned po prvním neúspěšném volání.",
+          "auto_reload": "Automaticky znovu načíst integraci, když do stanice přidáte modul nebo ho odeberete."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absolutní tlak"
+      },
+      "gust_angle": {
+        "name": "Úhel poryvu"
+      },
+      "gust_direction": {
+        "name": "Směr poryvu",
+        "state": {
+          "e": "Východní",
+          "n": "Severní",
+          "ne": "Severovýchodní",
+          "nw": "Severozápadní",
+          "s": "Jižní",
+          "se": "Jihovýchodní",
+          "sw": "Jihozápadní",
+          "w": "Západní"
+        }
+      },
+      "gust_strength": {
+        "name": "Síla poryvu"
+      },
+      "last_measurement": {
+        "name": "Poslední měření"
+      },
+      "noise": {
+        "name": "Hluk"
+      },
+      "pressure_trend": {
+        "name": "Trend tlaku",
+        "state": {
+          "up": "Stoupá",
+          "down": "Klesá",
+          "stable": "Stabilní"
+        }
+      },
+      "reachable": {
+        "name": "Dosažitelnost"
+      },
+      "rf_strength": {
+        "name": "Síla RF",
+        "state": {
+          "very_low": "Velmi nízká",
+          "low": "Nízká",
+          "medium": "Střední",
+          "high": "Vysoká",
+          "full": "Plná"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Srážky za poslední hodinu"
+      },
+      "sum_rain_24": {
+        "name": "Srážky dnes"
+      },
+      "temp_trend": {
+        "name": "Trend teploty",
+        "state": {
+          "up": "Stoupá",
+          "down": "Klesá",
+          "stable": "Stabilní"
+        }
+      },
+      "wifi_strength": {
+        "name": "Síla Wi-Fi",
+        "state": {
+          "very_low": "Velmi nízká",
+          "low": "Nízká",
+          "medium": "Střední",
+          "high": "Vysoká",
+          "full": "Plná"
+        }
+      },
+      "wind_angle": {
+        "name": "Úhel větru"
+      },
+      "wind_direction": {
+        "name": "Směr větru",
+        "state": {
+          "e": "Východní",
+          "n": "Severní",
+          "ne": "Severovýchodní",
+          "nw": "Severozápadní",
+          "s": "Jižní",
+          "se": "Jihovýchodní",
+          "sw": "Jihozápadní",
+          "w": "Západní"
+        }
+      }
+    }
+  }
+}

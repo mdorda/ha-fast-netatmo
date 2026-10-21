@@ -1,0 +1,36 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_direction": {
+        "state": {
+          "e": "Ekialdea",
+          "n": "Iparraldea",
+          "ne": "Ipar-ekialdea",
+          "nw": "Ipar-mendebaldea",
+          "s": "Hegoaldea",
+          "se": "Hego-ekialdea",
+          "sw": "Hego-mendebaldea",
+          "w": "Mendebaldea"
+        }
+      },
+      "noise": {
+        "name": "Zarata"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fiaren intentsitatea"
+      },
+      "wind_direction": {
+        "state": {
+          "e": "Ekialdea",
+          "n": "Iparraldea",
+          "ne": "Ipar-ekialdea",
+          "nw": "Ipar-mendebaldea",
+          "s": "Hegoaldea",
+          "se": "Hego-ekialdea",
+          "sw": "Hego-mendebaldea",
+          "w": "Mendebaldea"
+        }
+      }
+    }
+  }
+}

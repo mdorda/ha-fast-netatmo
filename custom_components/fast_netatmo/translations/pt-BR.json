@@ -1,0 +1,44 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Pressão absoluta"
+      },
+      "last_measurement": {
+        "name": "Última medição"
+      },
+      "pressure_trend": {
+        "state": {
+          "up": "Subindo",
+          "down": "Descendo",
+          "stable": "Estável"
+        }
+      },
+      "rf_strength": {
+        "state": {
+          "very_low": "Muito baixo",
+          "low": "Baixo",
+          "medium": "Médio",
+          "high": "Alto",
+          "full": "Máximo"
+        }
+      },
+      "temp_trend": {
+        "state": {
+          "up": "Subindo",
+          "down": "Descendo",
+          "stable": "Estável"
+        }
+      },
+      "wifi_strength": {
+        "state": {
+          "very_low": "Muito baixo",
+          "low": "Baixo",
+          "medium": "Médio",
+          "high": "Alto",
+          "full": "Máximo"
+        }
+      }
+    }
+  }
+}

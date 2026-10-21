@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absolut lufttryck"
+      },
+      "gust_angle": {
+        "name": "Vindby vinkel"
+      },
+      "gust_direction": {
+        "name": "Riktning vindbyar",
+        "state": {
+          "e": "Öst",
+          "n": "Nord",
+          "ne": "Nordost",
+          "nw": "Nordväst",
+          "s": "Syd",
+          "se": "Sydost",
+          "sw": "Sydväst",
+          "w": "Väst"
+        }
+      },
+      "gust_strength": {
+        "name": "Vindbya styrka"
+      },
+      "last_measurement": {
+        "name": "Senaste mätning"
+      },
+      "noise": {
+        "name": "Buller"
+      },
+      "pressure_trend": {
+        "name": "Lufttryck trend",
+        "state": {
+          "up": "Stigande",
+          "down": "Sjunkande",
+          "stable": "Stabil"
+        }
+      },
+      "reachable": {
+        "name": "Nåbarhet"
+      },
+      "rf_strength": {
+        "name": "RF-styrka",
+        "state": {
+          "very_low": "Mycket låg",
+          "low": "Låg",
+          "medium": "Medel",
+          "high": "Hög",
+          "full": "Full"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Nederbörd senaste timmen"
+      },
+      "sum_rain_24": {
+        "name": "Nederbörd i dag"
+      },
+      "temp_trend": {
+        "name": "Temperaturtrend",
+        "state": {
+          "up": "Stigande",
+          "down": "Sjunkande",
+          "stable": "Stabil"
+        }
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi-styrka",
+        "state": {
+          "very_low": "Mycket låg",
+          "low": "Låg",
+          "medium": "Medel",
+          "high": "Hög",
+          "full": "Full"
+        }
+      },
+      "wind_angle": {
+        "name": "Vindvinkel"
+      },
+      "wind_direction": {
+        "name": "Vindriktning",
+        "state": {
+          "e": "Öst",
+          "n": "Nord",
+          "ne": "Nordost",
+          "nw": "Nordväst",
+          "s": "Syd",
+          "se": "Sydost",
+          "sw": "Sydväst",
+          "w": "Väst"
+        }
+      }
+    }
+  }
+}

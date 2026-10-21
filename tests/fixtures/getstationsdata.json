@@ -1,0 +1,97 @@
+{
+  "body": {
+    "devices": [
+      {
+        "_id": "70:ee:50:00:00:01",
+        "date_setup": 1766648289,
+        "last_setup": 1766648289,
+        "type": "NAMain",
+        "last_status_store": 1792605502,
+        "module_name": "Weather Station",
+        "firmware": 300,
+        "wifi_status": 49,
+        "reachable": true,
+        "co2_calibrating": false,
+        "data_type": [
+          "Temperature",
+          "CO2",
+          "Humidity",
+          "Noise",
+          "Pressure"
+        ],
+        "place": {
+          "altitude": 35,
+          "city": "Example City",
+          "country": "FR",
+          "timezone": "Europe/Paris",
+          "location": [
+            2.35,
+            48.85
+          ]
+        },
+        "station_name": "My Home (Weather Station)",
+        "home_id": "5f0000000000000000000002",
+        "home_name": "My Home",
+        "dashboard_data": {
+          "time_utc": 1792605501,
+          "Temperature": 23.5,
+          "CO2": 689,
+          "Humidity": 45,
+          "Noise": 42,
+          "Pressure": 1008.6,
+          "AbsolutePressure": 980.7,
+          "min_temp": 22.5,
+          "max_temp": 23.8,
+          "date_max_temp": 1792574098,
+          "date_min_temp": 1792552959,
+          "temp_trend": "stable",
+          "pressure_trend": "down"
+        },
+        "modules": [
+          {
+            "_id": "02:00:00:00:00:01",
+            "type": "NAModule1",
+            "module_name": "Outdoor Module",
+            "last_setup": 1766648289,
+            "data_type": [
+              "Temperature",
+              "Humidity"
+            ],
+            "battery_percent": 78,
+            "reachable": true,
+            "firmware": 53,
+            "last_message": 1792605498,
+            "last_seen": 1792605460,
+            "rf_status": 91,
+            "battery_vp": 5604,
+            "dashboard_data": {
+              "time_utc": 1792605460,
+              "Temperature": 12.2,
+              "Humidity": 82,
+              "min_temp": 7.3,
+              "max_temp": 12.7,
+              "date_max_temp": 1792601871,
+              "date_min_temp": 1792561111,
+              "temp_trend": "down"
+            }
+          }
+        ]
+      }
+    ],
+    "user": {
+      "mail": "user@example.com",
+      "administrative": {
+        "lang": "en-US",
+        "reg_locale": "en-US",
+        "country": "FR",
+        "unit": 0,
+        "windunit": 0,
+        "pressureunit": 0,
+        "feel_like_algo": 0
+      }
+    }
+  },
+  "status": "ok",
+  "time_exec": 0.0350499153137207,
+  "time_server": 1792605717
+}

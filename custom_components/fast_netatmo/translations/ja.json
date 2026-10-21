@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "突風角度"
+      },
+      "gust_direction": {
+        "name": "突風の方向",
+        "state": {
+          "e": "東",
+          "n": "北",
+          "ne": "北東",
+          "nw": "北西",
+          "s": "南",
+          "se": "南東",
+          "sw": "南西",
+          "w": "西"
+        }
+      },
+      "gust_strength": {
+        "name": "突風の強さ"
+      },
+      "noise": {
+        "name": "ノイズ"
+      },
+      "pressure_trend": {
+        "name": "気圧傾向"
+      },
+      "reachable": {
+        "name": "到達可能性"
+      },
+      "rf_strength": {
+        "name": "RF強度"
+      },
+      "sum_rain_1": {
+        "name": "過去1時間の降水量"
+      },
+      "sum_rain_24": {
+        "name": "今日の降水量"
+      },
+      "temp_trend": {
+        "name": "気温の傾向"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi強度"
+      },
+      "wind_angle": {
+        "name": "風向角"
+      },
+      "wind_direction": {
+        "name": "風向",
+        "state": {
+          "e": "東",
+          "n": "北",
+          "ne": "北東",
+          "nw": "北西",
+          "s": "南",
+          "se": "南東",
+          "sw": "南西",
+          "w": "西"
+        }
+      }
+    }
+  }
+}

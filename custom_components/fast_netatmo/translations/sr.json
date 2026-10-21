@@ -1,0 +1,9 @@
+{
+  "entity": {
+    "sensor": {
+      "wind_direction": {
+        "name": "Смер ветра"
+      }
+    }
+  }
+}

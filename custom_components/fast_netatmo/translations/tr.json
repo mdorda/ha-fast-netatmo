@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "Rüzgar açısı"
+      },
+      "gust_direction": {
+        "name": "Rüzgar yönü",
+        "state": {
+          "e": "Doğu",
+          "n": "Kuzey",
+          "ne": "Kuzeydoğu",
+          "nw": "Kuzeybatı",
+          "s": "Güney",
+          "se": "Güneydoğu",
+          "sw": "Güneybatı",
+          "w": "Batı"
+        }
+      },
+      "gust_strength": {
+        "name": "Rüzgar gücü"
+      },
+      "noise": {
+        "name": "Gürültü"
+      },
+      "pressure_trend": {
+        "name": "Basınç eğilimi"
+      },
+      "reachable": {
+        "name": "Ulaşılabilirlik"
+      },
+      "rf_strength": {
+        "name": "RF gücü"
+      },
+      "sum_rain_1": {
+        "name": "Son saatteki yağış"
+      },
+      "sum_rain_24": {
+        "name": "Bugün yağış var"
+      },
+      "temp_trend": {
+        "name": "Sıcaklık eğilimi"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi gücü"
+      },
+      "wind_angle": {
+        "name": "Rüzgar açısı"
+      },
+      "wind_direction": {
+        "name": "Rüzgar yönü",
+        "state": {
+          "e": "Doğu",
+          "n": "Kuzey",
+          "ne": "Kuzeydoğu",
+          "nw": "Kuzeybatı",
+          "s": "Güney",
+          "se": "Güneydoğu",
+          "sw": "Güneybatı",
+          "w": "Batı"
+        }
+      }
+    }
+  }
+}

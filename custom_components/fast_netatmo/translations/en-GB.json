@@ -1,0 +1,65 @@
+{
+  "entity": {
+    "sensor": {
+      "gust_angle": {
+        "name": "Gust angle"
+      },
+      "gust_direction": {
+        "name": "Gust direction",
+        "state": {
+          "e": "East",
+          "n": "North",
+          "ne": "Northeast",
+          "nw": "Northwest",
+          "s": "South",
+          "se": "Southeast",
+          "sw": "Southwest",
+          "w": "West"
+        }
+      },
+      "gust_strength": {
+        "name": "Gust strength"
+      },
+      "noise": {
+        "name": "Noise"
+      },
+      "pressure_trend": {
+        "name": "Pressure trend"
+      },
+      "reachable": {
+        "name": "Reachability"
+      },
+      "rf_strength": {
+        "name": "RF strength"
+      },
+      "sum_rain_1": {
+        "name": "Precipitation last hour"
+      },
+      "sum_rain_24": {
+        "name": "Precipitation today"
+      },
+      "temp_trend": {
+        "name": "Temperature trend"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi strength"
+      },
+      "wind_angle": {
+        "name": "Wind angle"
+      },
+      "wind_direction": {
+        "name": "Wind direction",
+        "state": {
+          "e": "East",
+          "n": "North",
+          "ne": "Northeast",
+          "nw": "Northwest",
+          "s": "South",
+          "se": "Southeast",
+          "sw": "Southwest",
+          "w": "West"
+        }
+      }
+    }
+  }
+}

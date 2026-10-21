@@ -1,0 +1,95 @@
+{
+  "entity": {
+    "sensor": {
+      "absolute_pressure": {
+        "name": "Absoluter Luftdruck"
+      },
+      "gust_angle": {
+        "name": "Böenwinkel"
+      },
+      "gust_direction": {
+        "name": "Böenrichtung",
+        "state": {
+          "e": "Ost",
+          "n": "Nord",
+          "ne": "Nordost",
+          "nw": "Nordwest",
+          "s": "Süd",
+          "se": "Südost",
+          "sw": "Südwest",
+          "w": "West"
+        }
+      },
+      "gust_strength": {
+        "name": "Böenstärke"
+      },
+      "last_measurement": {
+        "name": "Letzte Messung"
+      },
+      "noise": {
+        "name": "Lärm"
+      },
+      "pressure_trend": {
+        "name": "Luftdruck-Trend",
+        "state": {
+          "up": "Steigend",
+          "down": "Fallend",
+          "stable": "Stabil"
+        }
+      },
+      "reachable": {
+        "name": "Erreichbarkeit"
+      },
+      "rf_strength": {
+        "name": "HF-Signalstärke",
+        "state": {
+          "very_low": "Sehr niedrig",
+          "low": "Niedrig",
+          "medium": "Mittel",
+          "high": "Hoch",
+          "full": "Voll"
+        }
+      },
+      "sum_rain_1": {
+        "name": "Niederschlagsmenge letzte Stunde"
+      },
+      "sum_rain_24": {
+        "name": "Niederschlagsmenge heute"
+      },
+      "temp_trend": {
+        "name": "Temperatur-Trend",
+        "state": {
+          "up": "Steigend",
+          "down": "Fallend",
+          "stable": "Stabil"
+        }
+      },
+      "wifi_strength": {
+        "name": "WLAN-Signalstärke",
+        "state": {
+          "very_low": "Sehr niedrig",
+          "low": "Niedrig",
+          "medium": "Mittel",
+          "high": "Hoch",
+          "full": "Voll"
+        }
+      },
+      "wind_angle": {
+        "name": "Windwinkel"
+      },
+      "wind_direction": {
+        "name": "Windrichtung",
+        "state": {
+          "e": "Ost",
+          "n": "Nord",
+          "ne": "Nordost",
+          "nw": "Nordwest",
+          "s": "Süd",
+          "se": "Südost",
+          "sw": "Südwest",
+          "w": "West"
+        }
+      }
+    }
+  }
+}
