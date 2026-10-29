@@ -154,7 +154,16 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
                 self._check_topology(changed=True)
             return self._handle_error(err)
 
-        self._check_topology(changed=set(modules) != set(self.topology.modules))
+        added = modules.keys() - self.topology.modules.keys()
+        missing = self.topology.modules.keys() - modules.keys()
+        if added or missing:
+            # Types only: module IDs are MAC addresses.
+            _LOGGER.debug(
+                "/homestatus differs from the known modules: new %s, missing %s",
+                sorted(modules[m]["type"] for m in added),
+                sorted(self.topology.modules[m].type for m in missing),
+            )
+        self._check_topology(changed=bool(added or missing))
         self._log_unknown_keys(modules)
         await self._async_slow_fetch()
 

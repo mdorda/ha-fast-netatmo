@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The debug log names the types of modules that `/homestatus` reports in addition to, or without, the known modules, before such a difference triggers a reload.
+
 ## [1.0.0] - 2026-10-21
 
 First release. A separate integration for the Netatmo Smart Weather Station that runs alongside the built-in Netatmo integration.

@@ -385,6 +385,25 @@ async def test_removed_module_reloads(
         reload.assert_called_once()
 
 
+async def test_module_difference_is_logged(
+    hass: HomeAssistant,
+    init_integration: MockConfigEntry,
+    netatmo: FakeNetatmo,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """The debug log names the types of new and missing modules, not their IDs."""
+    modules = netatmo.homestatus[HOME_ID]["body"]["home"]["modules"]
+    modules[:] = [m for m in modules if m["id"] != OUTDOOR_ID]
+    add_module(netatmo)
+    with caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"):
+        await refresh(hass, init_integration)
+    assert (
+        "/homestatus differs from the known modules: "
+        "new ['NAModule4'], missing ['NAModule1']"
+    ) in caplog.text
+    assert OUTDOOR_ID not in caplog.text
+
+
 async def test_flapping_change_does_not_reload(
     hass: HomeAssistant, init_integration: MockConfigEntry, netatmo: FakeNetatmo
 ) -> None:
