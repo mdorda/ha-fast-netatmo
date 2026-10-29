@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from datetime import timedelta
 from email.utils import format_datetime
 import logging
@@ -25,6 +26,7 @@ from custom_components.fast_netatmo.coordinator import FastNetatmoCoordinator
 from .conftest import (
     HOME_2_ID,
     HOME_ID,
+    MAIN_ID,
     OUTDOOR_ID,
     Clock,
     FakeNetatmo,
@@ -338,51 +340,98 @@ async def test_slow_fetch_auth_error_starts_reauth(
     assert [f["context"]["source"] for f in flows] == [SOURCE_REAUTH]
 
 
-def add_module(netatmo: FakeNetatmo) -> None:
-    """Make /homestatus report a module the topology doesn't know."""
+NEW_ID = "03:00:00:00:00:42"
+
+
+def add_module(netatmo: FakeNetatmo, *, homesdata: bool = False) -> None:
+    """Make /homestatus, and optionally /homesdata, report a new module."""
     netatmo.homestatus[HOME_ID]["body"]["home"]["modules"].append(
-        {
-            "id": "03:00:00:00:00:42",
-            "type": "NAModule4",
-            "reachable": True,
-            "temperature": 20,
-        }
+        {"id": NEW_ID, "type": "NAModule4", "reachable": True, "temperature": 20}
     )
+    if homesdata:
+        netatmo.homesdata["body"]["homes"][0]["modules"].append(
+            {"id": NEW_ID, "type": "NAModule4", "name": "Kids room", "bridge": MAIN_ID}
+        )
 
 
-async def test_new_module_reloads_after_two_polls(
+def remove_outdoor(netatmo: FakeNetatmo, *, homesdata: bool = False) -> None:
+    """Make /homestatus, and optionally /homesdata, omit the outdoor module."""
+    lists = [netatmo.homestatus[HOME_ID]["body"]["home"]["modules"]]
+    if homesdata:
+        lists.append(netatmo.homesdata["body"]["homes"][0]["modules"])
+    for modules in lists:
+        modules[:] = [m for m in modules if m["id"] != OUTDOOR_ID]
+
+
+async def test_new_module_reloads_after_check(
     hass: HomeAssistant,
     init_integration: MockConfigEntry,
     netatmo: FakeNetatmo,
-    clock: Clock,
+    caplog: pytest.LogCaptureFixture,
 ) -> None:
-    """A topology change must persist for two polls; reloads are rate limited."""
-    add_module(netatmo)
-    with patch.object(hass.config_entries, "async_schedule_reload") as reload:
+    """After two polls with a new module, /homesdata confirms it and the entry reloads."""
+    add_module(netatmo, homesdata=True)
+    with (
+        patch.object(hass.config_entries, "async_schedule_reload") as reload,
+        caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"),
+    ):
         await refresh(hass, init_integration)
         reload.assert_not_called()
+        assert netatmo.calls["homesdata"] == 1
         await refresh(hass, init_integration)
         reload.assert_called_once_with(init_integration.entry_id)
-
-        reload.reset_mock()
-        clock.tick(3599)
-        await refresh(hass, init_integration)
-        reload.assert_not_called()
-        clock.tick(1)
-        await refresh(hass, init_integration)
-        reload.assert_called_once_with(init_integration.entry_id)
+    assert netatmo.calls["homesdata"] == 2
+    assert "Modules differ for 2 polls, checking /homesdata" in caplog.text
+    assert (
+        "/homesdata differs from the known modules: new ['NAModule4'], removed []"
+    ) in caplog.text
+    assert "The weather station modules changed, reloading" in caplog.text
 
 
 async def test_removed_module_reloads(
     hass: HomeAssistant, init_integration: MockConfigEntry, netatmo: FakeNetatmo
 ) -> None:
-    """A module that disappears also counts as a change."""
-    modules = netatmo.homestatus[HOME_ID]["body"]["home"]["modules"]
-    modules[:] = [m for m in modules if m["id"] != OUTDOOR_ID]
+    """A module that disappears from /homesdata also counts as a change."""
+    remove_outdoor(netatmo, homesdata=True)
     with patch.object(hass.config_entries, "async_schedule_reload") as reload:
         await refresh(hass, init_integration)
         await refresh(hass, init_integration)
         reload.assert_called_once()
+
+
+@pytest.mark.parametrize("change", [add_module, remove_outdoor])
+async def test_homestatus_only_difference_does_not_reload(
+    hass: HomeAssistant,
+    init_integration: MockConfigEntry,
+    netatmo: FakeNetatmo,
+    clock: Clock,
+    caplog: pytest.LogCaptureFixture,
+    change: Callable[[FakeNetatmo], None],
+) -> None:
+    """When /homesdata still lists the known modules, nothing reloads.
+
+    An overloaded /homestatus reports a different set of modules for a few
+    minutes; /homesdata is checked at most once an hour.
+    """
+    change(netatmo)
+    with (
+        patch.object(hass.config_entries, "async_schedule_reload") as reload,
+        caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"),
+    ):
+        await refresh(hass, init_integration)
+        await refresh(hass, init_integration)
+        assert netatmo.calls["homesdata"] == 2
+        assert "/homesdata lists the known modules, not reloading" in caplog.text
+
+        clock.tick(3599)
+        await refresh(hass, init_integration)
+        assert netatmo.calls["homesdata"] == 2
+        assert "Modules differ, but the last check was too recent" in caplog.text
+
+        clock.tick(1)
+        await refresh(hass, init_integration)
+        assert netatmo.calls["homesdata"] == 3
+        reload.assert_not_called()
 
 
 async def test_module_difference_is_logged(
@@ -392,8 +441,7 @@ async def test_module_difference_is_logged(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """The debug log names the types of new and missing modules, not their IDs."""
-    modules = netatmo.homestatus[HOME_ID]["body"]["home"]["modules"]
-    modules[:] = [m for m in modules if m["id"] != OUTDOOR_ID]
+    remove_outdoor(netatmo)
     add_module(netatmo)
     with caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"):
         await refresh(hass, init_integration)
@@ -404,10 +452,48 @@ async def test_module_difference_is_logged(
     assert OUTDOOR_ID not in caplog.text
 
 
+async def test_failed_check_does_not_reload(
+    hass: HomeAssistant,
+    init_integration: MockConfigEntry,
+    netatmo: FakeNetatmo,
+    clock: Clock,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """A failed /homesdata check doesn't reload; the next one runs after the cooldown."""
+    add_module(netatmo, homesdata=True)
+    netatmo.queue("homesdata", error_response(503, 27, "Service unavailable"))
+    with (
+        patch.object(hass.config_entries, "async_schedule_reload") as reload,
+        caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"),
+    ):
+        await refresh(hass, init_integration)
+        await refresh(hass, init_integration)
+        reload.assert_not_called()
+        assert "Checking the modules failed, next check in 3600s" in caplog.text
+        # Live values are not affected by the failed check.
+        assert init_integration.runtime_data.last_success is not None
+
+        clock.tick(3600)
+        await refresh(hass, init_integration)
+        reload.assert_called_once()
+
+
+async def test_check_auth_error_starts_reauth(
+    hass: HomeAssistant, init_integration: MockConfigEntry, netatmo: FakeNetatmo
+) -> None:
+    """An auth error from the /homesdata check asks the user to sign in again."""
+    add_module(netatmo)
+    netatmo.queue("homesdata", error_response(403, 2, "Invalid access token"))
+    await refresh(hass, init_integration)
+    await refresh(hass, init_integration)
+    flows = hass.config_entries.flow.async_progress()
+    assert [f["context"]["source"] for f in flows] == [SOURCE_REAUTH]
+
+
 async def test_flapping_change_does_not_reload(
     hass: HomeAssistant, init_integration: MockConfigEntry, netatmo: FakeNetatmo
 ) -> None:
-    """A change seen only once is ignored."""
+    """A change seen only once is ignored without checking /homesdata."""
     with patch.object(hass.config_entries, "async_schedule_reload") as reload:
         add_module(netatmo)
         await refresh(hass, init_integration)
@@ -416,6 +502,7 @@ async def test_flapping_change_does_not_reload(
         add_module(netatmo)
         await refresh(hass, init_integration)
         reload.assert_not_called()
+    assert netatmo.calls["homesdata"] == 1
 
 
 async def test_invalid_home_id_reloads(
@@ -423,6 +510,7 @@ async def test_invalid_home_id_reloads(
 ) -> None:
     """Code 21 (home removed) counts as a topology change."""
     netatmo.failing["homestatus"] = error_response(400, 21, "Invalid home_id")
+    netatmo.homesdata["body"]["homes"].clear()
     with patch.object(hass.config_entries, "async_schedule_reload") as reload:
         await refresh(hass, init_integration)
         await refresh(hass, init_integration)
@@ -449,15 +537,7 @@ async def test_real_reload_picks_up_new_module(
     hass: HomeAssistant, init_integration: MockConfigEntry, netatmo: FakeNetatmo
 ) -> None:
     """After the reload, the new module has entities."""
-    netatmo.homesdata["body"]["homes"][0]["modules"].append(
-        {
-            "id": "03:00:00:00:00:42",
-            "type": "NAModule4",
-            "name": "Kids room",
-            "bridge": "70:ee:50:00:00:01",
-        }
-    )
-    add_module(netatmo)
+    add_module(netatmo, homesdata=True)
     await refresh(hass, init_integration)
     await refresh(hass, init_integration)
     await hass.async_block_till_done()

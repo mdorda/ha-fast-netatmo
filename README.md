@@ -51,7 +51,7 @@ The station's HomeKit support doesn't help either. We logged a station connected
 
 Netatmo limits API calls ([developer guidelines](https://dev.netatmo.com/guideline)). An app with a single user, such as your own Netatmo app, gets the per-user limit: **500 requests per hour** and 50 requests per 10 seconds. Netatmo [confirmed this in 2025](https://helpcenter.netatmo.com/hc/en-us/community/posts/28272276247058).
 
-With the default interval of 30 seconds, this integration makes about 120 `/homestatus` calls per hour for one home, plus 6 `/getstationsdata` calls per hour for trends and battery. At the minimum interval of 10 seconds it makes about 366 calls per hour. With several homes, the interval is stretched automatically (at least 10 seconds per home).
+With the default interval of 30 seconds, this integration makes about 120 `/homestatus` calls per hour for one home, plus 6 `/getstationsdata` calls per hour for trends and battery, and at most one `/homesdata` call per hour while the live data shows a different set of modules. At the minimum interval of 10 seconds it makes about 366 calls per hour. With several homes, the interval is stretched automatically (at least 10 seconds per home).
 
 > [!IMPORTANT]
 > Netatmo doesn't say whether the 500 requests per hour are counted per app or per account. **They may be shared with other integrations and apps that use the same Netatmo account**, for example the built-in Netatmo integration for your thermostat. If you use them and lower the interval, keep an eye on the total.
@@ -113,7 +113,7 @@ Open **Settings → Devices & services → Netatmo (fast weather) → Configure*
 |---|---|---|---|
 | Polling interval | 30 s | 10–600 s | How often live values are read. The main station sends data every few seconds, but CO₂ changes only every 10–40 s, so going below 30 s brings little. Lower values use more of the [API limit](#netatmo-api-limits). With several homes, the interval is at least 10 s per home. |
 | Grace period | 5 min | 0–60 min | How long sensors keep their last value when Netatmo doesn't respond. After that, they become unavailable, so a stale value is never shown for long. 0 makes them unavailable at the first failed call. |
-| Reload on module changes | on | on/off | When a module is added to or removed from your station, the integration reloads itself, so new modules get their sensors. Turn it off to reload by hand; a change is then only logged. |
+| Reload on module changes | on | on/off | When live data shows a module that was added to or removed from your station, the integration checks the module list with Netatmo (at most once an hour) and, if confirmed, reloads itself, so new modules get their sensors. Turn it off to reload by hand; a change is then only logged. |
 
 ## Moving from the built-in integration
 

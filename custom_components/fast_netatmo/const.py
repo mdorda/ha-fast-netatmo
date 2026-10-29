@@ -61,8 +61,9 @@ MAX_RETRY_AFTER: Final = 3600
 RATE_LIMIT_PER_HOUR: Final = 400
 RATE_LIMIT_DELAY: Final = 60
 
-# A topology change must show up in this many consecutive polls before reloading.
+# A topology change must show up in this many consecutive polls before /homesdata
+# is checked; the check runs at most once per cooldown.
 TOPOLOGY_CHANGE_POLLS: Final = 2
-TOPOLOGY_RELOAD_COOLDOWN: Final = 3600
+TOPOLOGY_CHECK_COOLDOWN: Final = 3600
 
 DEFAULT_TITLE: Final = "Netatmo (fast weather)"

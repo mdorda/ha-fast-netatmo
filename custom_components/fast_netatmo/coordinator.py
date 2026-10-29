@@ -21,6 +21,7 @@ from .api import (
     Topology,
     parse_home_status,
     parse_stations_data,
+    parse_topology,
 )
 from .const import (
     CONF_AUTO_RELOAD,
@@ -38,7 +39,7 @@ from .const import (
     SLOW_ERROR_PENALTY,
     SLOW_FETCH_INTERVAL,
     TOPOLOGY_CHANGE_POLLS,
-    TOPOLOGY_RELOAD_COOLDOWN,
+    TOPOLOGY_CHECK_COOLDOWN,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -151,7 +152,7 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
             raise ConfigEntryAuthFailed(str(err)) from err
         except NetatmoError as err:
             if err.code == INVALID_HOME_ID_CODE:
-                self._check_topology(changed=True)
+                await self._async_check_topology(changed=True)
             return self._handle_error(err)
 
         added = modules.keys() - self.topology.modules.keys()
@@ -163,7 +164,7 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
                 sorted(modules[m]["type"] for m in added),
                 sorted(self.topology.modules[m].type for m in missing),
             )
-        self._check_topology(changed=bool(added or missing))
+        await self._async_check_topology(changed=bool(added or missing))
         self._log_unknown_keys(modules)
         await self._async_slow_fetch()
 
@@ -226,8 +227,12 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
         self._slow = parse_stations_data(body)
         self._slow_due = now + SLOW_FETCH_INTERVAL
 
-    def _check_topology(self, *, changed: bool) -> None:
-        """Reload the entry when modules appear or disappear."""
+    async def _async_check_topology(self, *, changed: bool) -> None:
+        """Reload the entry when /homesdata confirms that modules changed.
+
+        An overloaded /homestatus can report a different set of modules for a few
+        minutes, so a difference alone doesn't reload.
+        """
         if not changed:
             self._change_polls = 0
             self._change_logged = False
@@ -242,13 +247,40 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
             return
         if self._change_polls < TOPOLOGY_CHANGE_POLLS:
             return
-        reloads: dict[str, float] = self.hass.data.setdefault(f"{DOMAIN}_reloads", {})
+        checks: dict[str, float] = self.hass.data.setdefault(
+            f"{DOMAIN}_topology_checks", {}
+        )
         now = monotonic()
-        last = reloads.get(self.config_entry.entry_id)
-        if last is not None and now - last < TOPOLOGY_RELOAD_COOLDOWN:
-            _LOGGER.debug("Modules changed, but the last reload was too recent")
+        last = checks.get(self.config_entry.entry_id)
+        if last is not None and now - last < TOPOLOGY_CHECK_COOLDOWN:
+            _LOGGER.debug("Modules differ, but the last check was too recent")
             return
-        reloads[self.config_entry.entry_id] = now
+        checks[self.config_entry.entry_id] = now
+        _LOGGER.debug(
+            "Modules differ for %s polls, checking /homesdata", self._change_polls
+        )
+        try:
+            body = await self.api.async_get_homes_data()
+        except NetatmoAuthError as err:
+            raise ConfigEntryAuthFailed(str(err)) from err
+        except NetatmoError as err:
+            _LOGGER.debug(
+                "Checking the modules failed, next check in %ss at the earliest: %s",
+                TOPOLOGY_CHECK_COOLDOWN,
+                err,
+            )
+            return
+        current = parse_topology(body).modules
+        added = current.keys() - self.topology.modules.keys()
+        removed = self.topology.modules.keys() - current.keys()
+        if not added and not removed:
+            _LOGGER.debug("/homesdata lists the known modules, not reloading")
+            return
+        _LOGGER.debug(
+            "/homesdata differs from the known modules: new %s, removed %s",
+            sorted(current[m].type for m in added),
+            sorted(self.topology.modules[m].type for m in removed),
+        )
         _LOGGER.info("The weather station modules changed, reloading")
         self.hass.config_entries.async_schedule_reload(self.config_entry.entry_id)
 

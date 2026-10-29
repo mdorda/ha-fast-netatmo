@@ -8,7 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- The debug log names the types of modules that `/homestatus` reports in addition to, or without, the known modules, before such a difference triggers a reload.
+- The debug log names the types of modules that `/homestatus` reports in addition to, or without, the known modules, and every step of the `/homesdata` check described below.
+
+### Fixed
+
+- No more needless reloads while Netatmo is overloaded. A slow `/homestatus` can report a different set of modules for a few minutes; the integration now reloads only when `/homesdata` confirms the change, and checks it at most once an hour. Before, each such episode reloaded the integration, and sensors were unavailable for up to a minute and a half when `/homesdata` was unavailable too.
 
 ## [1.0.0] - 2026-10-21
 
