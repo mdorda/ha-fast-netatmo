@@ -1,6 +1,6 @@
 [project]
 name = "ha-fast-netatmo"
-version = "1.0.0"
+version = "1.0.1"
 description = "Home Assistant integration for the Netatmo Smart Weather Station with fast updates"
 requires-python = ">=3.14"
 license = "Apache-2.0"

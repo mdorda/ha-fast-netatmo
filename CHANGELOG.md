@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-29
+
 ### Changed
 
 - The debug log names the types of modules that `/homestatus` reports in addition to, or without, the known modules, and every step of the `/homesdata` check described below.
@@ -33,5 +35,6 @@ First release. A separate integration for the Netatmo Smart Weather Station that
 
 - The wind gauge, the rain gauge and additional indoor modules have not been tested on real hardware.
 
-[Unreleased]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/mdorda/ha-fast-netatmo/releases/tag/v1.0.0
