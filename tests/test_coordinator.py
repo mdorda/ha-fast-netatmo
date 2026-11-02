@@ -32,6 +32,7 @@ from .conftest import (
     FakeNetatmo,
     error_response,
     exc_response,
+    load,
     setup_integration,
 )
 
@@ -228,6 +229,96 @@ async def test_no_grace_period(
     netatmo.queue("homestatus", error_response(503))
     await refresh(hass, init_integration)
     assert hass.states.get(TEMPERATURE).state == STATE_UNAVAILABLE
+
+
+OUTDOOR_TEMPERATURE = "sensor.outdoor_module_temperature"
+
+
+async def test_station_error_counts_as_failure(
+    hass: HomeAssistant,
+    init_integration: MockConfigEntry,
+    netatmo: FakeNetatmo,
+    clock: Clock,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """A /homestatus with only module errors backs off and keeps the last values.
+
+    An overloaded Netatmo answers HTTP 200 with the station under errors (code 2)
+    and no modules. That is not an auth error and not a topology change.
+    """
+    outdoor = hass.states.get(OUTDOOR_TEMPERATURE).state
+    healthy = netatmo.homestatus[HOME_ID]
+    netatmo.homestatus[HOME_ID] = load("homestatus_errors.json")
+    with caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"):
+        await refresh(hass, init_integration)
+        await refresh(hass, init_integration)
+
+        assert interval(init_integration) == 60
+        assert hass.states.get(TEMPERATURE).state == "23.6"
+        assert hass.states.get(OUTDOOR_TEMPERATURE).state == outdoor
+        assert not hass.config_entries.flow.async_progress()
+        assert netatmo.calls["homesdata"] == 1
+        assert (
+            "/homestatus reports errors for ['NAMain', 'NAModule1'] (codes ['2'])"
+            in caplog.text
+        )
+        assert (
+            "Updating Netatmo data failed, retrying in 60s: /homestatus reports errors"
+            in caplog.text
+        )
+
+        clock.tick(301)
+        await refresh(hass, init_integration)
+        assert hass.states.get(TEMPERATURE).state == STATE_UNAVAILABLE
+
+        netatmo.homestatus[HOME_ID] = healthy
+        await refresh(hass, init_integration)
+    assert interval(init_integration) == 30
+    assert hass.states.get(TEMPERATURE).state == "23.6"
+    assert "Netatmo API is reachable again" in caplog.text
+
+
+async def test_failed_station_keeps_its_modules(
+    hass: HomeAssistant,
+    setup_credentials: None,
+    netatmo: FakeNetatmo,
+    clock: Clock,
+    config_entry: MockConfigEntry,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """A station with errors keeps its and its modules' values for the grace period.
+
+    The other home updates as usual, and the difference doesn't check /homesdata.
+    """
+    netatmo.second_home()
+    await setup_integration(hass, config_entry)
+    outdoor = hass.states.get(OUTDOOR_TEMPERATURE).state
+    healthy = netatmo.homestatus[HOME_ID]
+    netatmo.homestatus[HOME_ID] = load("homestatus_errors.json")
+    cottage = netatmo.homestatus[HOME_2_ID]["body"]["home"]["modules"][0]
+
+    with caplog.at_level(logging.DEBUG, logger="custom_components.fast_netatmo"):
+        cottage["temperature"] = 19.0
+        clock.tick(299)
+        await refresh(hass, config_entry)
+        await refresh(hass, config_entry)
+    assert interval(config_entry) == 30
+    assert hass.states.get("sensor.cottage_station_temperature").state == "19.0"
+    assert hass.states.get(TEMPERATURE).state == "23.6"
+    assert hass.states.get(OUTDOOR_TEMPERATURE).state == outdoor
+    assert netatmo.calls["homesdata"] == 1
+    assert "differs from the known modules" not in caplog.text
+
+    clock.tick(1)
+    await refresh(hass, config_entry)
+    assert hass.states.get(TEMPERATURE).state == STATE_UNAVAILABLE
+    assert hass.states.get(OUTDOOR_TEMPERATURE).state == STATE_UNAVAILABLE
+    assert hass.states.get("sensor.cottage_station_temperature").state == "19.0"
+
+    netatmo.homestatus[HOME_ID] = healthy
+    await refresh(hass, config_entry)
+    assert hass.states.get(TEMPERATURE).state == "23.6"
+    assert hass.states.get(OUTDOOR_TEMPERATURE).state == outdoor
 
 
 @pytest.mark.parametrize(

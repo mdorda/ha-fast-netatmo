@@ -27,6 +27,8 @@ from custom_components.fast_netatmo.api import (
     NetatmoAuthError,
     NetatmoConnectionError,
     NetatmoError,
+    parse_home_errors,
+    parse_home_status,
     parse_retry_after,
     parse_stations_data,
     parse_topology,
@@ -66,6 +68,24 @@ async def test_parse_fixtures() -> None:
     slow = parse_stations_data(load("getstationsdata.json"))
     assert slow[MAIN_ID] == {"temp_trend": "stable", "pressure_trend": "down"}
     assert slow[OUTDOOR_ID] == {"temp_trend": "down", "battery_percent": 78}
+
+
+async def test_parse_home_errors() -> None:
+    """An overloaded /homestatus lists the station under errors instead of its data."""
+    body = load("homestatus_errors.json")
+    assert parse_home_status(body) == {}
+    assert parse_home_errors(body) == {MAIN_ID: 2}
+    assert parse_home_errors(load("homestatus.json")) == {}
+    assert parse_home_errors({"body": {"errors": [{"code": 2}, "bad"]}}) == {}
+
+
+async def test_module_errors_are_not_auth_errors(
+    api: NetatmoApi, netatmo: FakeNetatmo
+) -> None:
+    """Code 2 inside the body is a module error, so the response is returned."""
+    netatmo.homestatus[HOME_ID] = load("homestatus_errors.json")
+    body = await api.async_get_home_status(HOME_ID)
+    assert parse_home_errors(body) == {MAIN_ID: 2}
 
 
 async def test_topology_without_user_id_falls_back_to_home() -> None:

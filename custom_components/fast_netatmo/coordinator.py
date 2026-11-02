@@ -19,6 +19,7 @@ from .api import (
     NetatmoAuthError,
     NetatmoError,
     Topology,
+    parse_home_errors,
     parse_home_status,
     parse_stations_data,
     parse_topology,
@@ -137,17 +138,20 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
         self._slow: dict[str, dict[str, Any]] = {}
         self._slow_due = 0.0
         self._failures = 0
+        self._module_seen: dict[str, float] = {}
         self._change_polls = 0
         self._change_logged = False
         self._unknown_keys_logged: set[str] = set()
 
     async def _async_update_data(self) -> FastNetatmoData:
         modules: dict[str, dict[str, Any]] = {}
+        errors: dict[str, int | None] = {}
         try:
             for home_id in self.topology.homes:
                 body = await self.api.async_get_home_status(home_id)
                 self.raw["homestatus"][home_id] = body
                 modules.update(parse_home_status(body))
+                errors.update(parse_home_errors(body))
         except NetatmoAuthError as err:
             raise ConfigEntryAuthFailed(str(err)) from err
         except NetatmoError as err:
@@ -155,8 +159,30 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
                 await self._async_check_topology(changed=True)
             return self._handle_error(err)
 
+        # Modules reported as errors, directly or through their station, are not
+        # a topology change: their data is temporarily unavailable at Netatmo.
+        failed = {
+            m.id
+            for m in self.topology.modules.values()
+            if (m.id in errors or m.bridge in errors) and m.id not in modules
+        }
+        if failed:
+            _LOGGER.debug(
+                "/homestatus reports errors for %s (codes %s)",
+                sorted(self.topology.modules[m].type for m in failed),
+                sorted({str(code) for code in errors.values()}),
+            )
+            if not modules:
+                return self._handle_error(
+                    NetatmoError("/homestatus reports errors instead of module data")
+                )
+
+        now = monotonic()
+        for module_id in modules:
+            self._module_seen[module_id] = now
         added = modules.keys() - self.topology.modules.keys()
-        missing = self.topology.modules.keys() - modules.keys()
+        missing = self.topology.modules.keys() - modules.keys() - failed
+        self._keep_failed(modules, failed, now)
         if added or missing:
             # Types only: module IDs are MAC addresses.
             _LOGGER.debug(
@@ -201,6 +227,20 @@ class FastNetatmoCoordinator(DataUpdateCoordinator[FastNetatmoData]):
         ):
             return self.data
         raise UpdateFailed(str(err)) from err
+
+    def _keep_failed(
+        self, modules: dict[str, dict[str, Any]], failed: set[str], now: float
+    ) -> None:
+        """Keep the last data of failed modules seen within the grace period."""
+        previous = self.data.modules if self.data is not None else {}
+        for module_id in failed:
+            seen = self._module_seen.get(module_id)
+            if (
+                module_id in previous
+                and seen is not None
+                and now - seen < self.grace_period
+            ):
+                modules[module_id] = previous[module_id]
 
     def _guard(self, delay: float) -> float:
         """Push the next poll back while our own call rate is too high."""

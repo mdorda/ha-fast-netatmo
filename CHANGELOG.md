@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-11-02
+
+### Fixed
+
+- Sensors no longer become unavailable while Netatmo is overloaded. An overloaded `/homestatus` answers successfully, but lists the station under errors (code 2) instead of its data, so its sensors and those of its modules went unavailable at once. Now they keep their last value for the grace period. When no module has data, the integration backs off as after any other error, and modules reported with errors no longer trigger the `/homesdata` check.
+
 ## [1.0.1] - 2026-10-29
 
 ### Changed
@@ -35,6 +41,7 @@ First release. A separate integration for the Netatmo Smart Weather Station that
 
 - The wind gauge, the rain gauge and additional indoor modules have not been tested on real hardware.
 
-[Unreleased]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/mdorda/ha-fast-netatmo/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/mdorda/ha-fast-netatmo/releases/tag/v1.0.0

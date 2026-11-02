@@ -112,7 +112,7 @@ Open **Settings → Devices & services → Netatmo (fast weather) → Configure*
 | Option | Default | Range | What it does |
 |---|---|---|---|
 | Polling interval | 30 s | 10–600 s | How often live values are read. The main station sends data every few seconds, but CO₂ changes only every 10–40 s, so going below 30 s brings little. Lower values use more of the [API limit](#netatmo-api-limits). With several homes, the interval is at least 10 s per home. |
-| Grace period | 5 min | 0–60 min | How long sensors keep their last value when Netatmo doesn't respond. After that, they become unavailable, so a stale value is never shown for long. 0 makes them unavailable at the first failed call. |
+| Grace period | 5 min | 0–60 min | How long sensors keep their last value when Netatmo doesn't respond, or answers with an error for the module instead of its data (this happens when Netatmo is overloaded). After that, they become unavailable, so a stale value is never shown for long. 0 makes them unavailable at the first failed call. |
 | Reload on module changes | on | on/off | When live data shows a module that was added to or removed from your station, the integration checks the module list with Netatmo (at most once an hour) and, if confirmed, reloads itself, so new modules get their sensors. Turn it off to reload by hand; a change is then only logged. |
 
 ## Moving from the built-in integration
@@ -164,6 +164,7 @@ Every module is a device. Sensors marked "off" are disabled by default; enable t
 - **Values don't change.** Enable the **Last measurement** sensor of the module. If it doesn't change either, the module isn't sending new data. Remember that radio modules send only every few minutes.
 - **Errors "User usage reached" (code 26) persist even though the integration makes few calls.** Netatmo users have reported quota errors that stay for hours. What helped: remove the app's access at [home.netatmo.com → Settings → My account](https://home.netatmo.com/settings/my-account), then re-authenticate in Home Assistant.
 - **Errors "Failed to enter concurrency limited section" (code 11).** Netatmo is overloaded; it is not about your usage. The integration retries automatically.
+- **Debug log "/homestatus reports errors for ['NAMain', 'NAModule1'] (codes ['2'])".** Netatmo is overloaded and sends an error for the station instead of its data. Code 2 here has nothing to do with your access token. The sensors keep their last value for the [grace period](#options); when no module has data, the integration waits twice the interval, as after any other error.
 
 To see each API call and how long it takes, enable debug logging:
 

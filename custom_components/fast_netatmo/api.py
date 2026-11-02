@@ -130,6 +130,20 @@ def parse_home_status(body: dict[str, Any]) -> dict[str, dict[str, Any]]:
     }
 
 
+def parse_home_errors(body: dict[str, Any]) -> dict[str, int | None]:
+    """Return the module IDs that a /homestatus response reports errors for, with codes.
+
+    An overloaded Netatmo answers HTTP 200 with a station listed here instead of
+    its data. These codes are per module: code 2 here is not an auth error.
+    """
+    errors = (body.get("body") or {}).get("errors") or []
+    return {
+        error["id"]: error.get("code")
+        for error in errors
+        if isinstance(error, dict) and error.get("id")
+    }
+
+
 def parse_stations_data(body: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """Return trends and battery from /getstationsdata by module ID.
 
