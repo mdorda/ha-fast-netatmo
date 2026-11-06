@@ -1,6 +1,6 @@
 # Netatmo (fast weather) for Home Assistant
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
+[![Marketplace](https://img.shields.io/badge/Marketplace%20%2F%20HACS-Custom-41BDF5.svg)](https://www.home-assistant.io/integrations/marketplace/)
 [![Validate](https://github.com/mdorda/ha-fast-netatmo/actions/workflows/validate.yml/badge.svg)](https://github.com/mdorda/ha-fast-netatmo/actions/workflows/validate.yml)
 
 A Home Assistant integration for the **Netatmo Smart Weather Station**. It shows the main (indoor) station's values with a delay of **about 30 seconds**, configurable down to 10 seconds. The built-in Netatmo integration shows values that can be 10 to 20 minutes old.
@@ -59,7 +59,7 @@ With the default interval of 30 seconds, this integration makes about 120 `/home
 ## Requirements
 
 - Home Assistant 2026.10 or newer.
-- [HACS](https://hacs.xyz/).
+- The [Marketplace](https://www.home-assistant.io/integrations/marketplace/), built into Home Assistant 2026.11 and newer. On Home Assistant 2026.10, [HACS](https://hacs.xyz/) instead.
 - **Your own Netatmo developer app.** This is required, not optional. Setting one up is free and takes a few minutes, see [Setup](#setup).
 
 ### Why you need your own Netatmo app
@@ -70,7 +70,16 @@ With the default interval of 30 seconds, this integration makes about 120 `/home
 
 ## Installation
 
-### HACS (recommended)
+### Marketplace (recommended, Home Assistant 2026.11 and newer)
+
+Since Home Assistant 2026.11, HACS is built in as the **Marketplace**. If you installed this integration through HACS before, it moved to the Marketplace automatically and keeps receiving updates.
+
+1. Go to **Settings → Marketplace** and select **Add from link** in the upper-right corner. Adding a link requires a GitHub connection; the Marketplace asks you to connect if needed.
+2. Under **GitHub link**, enter `https://github.com/mdorda/ha-fast-netatmo` and select **Add**. If asked for a **Type**, choose **Integration**.
+3. Open **Netatmo (fast weather)**, select **Install** and confirm.
+4. If Home Assistant asks for a restart (**Settings → System → Repairs**), restart it.
+
+### HACS (Home Assistant 2026.10)
 
 1. In Home Assistant, open **HACS**. From the **⋮** menu, choose **Custom repositories**.
 2. Add `https://github.com/mdorda/ha-fast-netatmo` with the category **Integration**.
@@ -180,7 +189,7 @@ When reporting an issue, attach the diagnostics: **Settings → Devices & servic
 ## Removal
 
 1. Go to **Settings → Devices & services → Netatmo (fast weather)** and delete the integration.
-2. Remove it in **HACS**, or delete `custom_components/fast_netatmo`, and restart Home Assistant.
+2. Uninstall it in the **Marketplace** (or **HACS** on Home Assistant 2026.10), or delete `custom_components/fast_netatmo`, and restart Home Assistant.
 3. Optionally, delete the app at [dev.netatmo.com](https://dev.netatmo.com/) under **My apps**. This also revokes its access to your account.
 4. If you disabled weather station devices in the built-in Netatmo integration, enable them again.
 
