@@ -1,0 +1,88 @@
+name: Dependabot
+
+# Minor and patch updates from Dependabot merge by themselves once every required check
+# passes (GitHub auto-merge, gated by the ruleset on main). The owner is assigned and
+# mentioned, which sends an e-mail, when an update is major (or its type is unknown)
+# and when Validate fails on a Dependabot pull request.
+#
+# The update type comes from the metadata block that Dependabot writes into its commit
+# message ("update-type: version-update:semver-..."), so no third-party action is needed.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_run:
+    workflows: [Validate]
+    types: [completed]
+
+permissions: {}
+
+jobs:
+  auto-merge:
+    name: Enable auto-merge
+    if: >-
+      github.event_name == 'pull_request'
+      && github.event.pull_request.user.login == 'dependabot[bot]'
+      && github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      SHA: ${{ github.event.pull_request.head.sha }}
+      OWNER: ${{ github.repository_owner }}
+    steps:
+      - name: Merge minor and patch updates, report the rest
+        run: |
+          message=$(gh api "repos/$GH_REPO/commits/$SHA" --jq .commit.message)
+          types=$(grep -oE 'update-type: version-update:semver-[a-z]+' <<<"$message" \
+            | sed 's/.*semver-//' | sort -u | paste -sd, -)
+          echo "Update types: ${types:-none}"
+
+          if [[ -n "$types" && ! "$types" =~ major ]]; then
+            gh pr merge "$PR" --auto --squash
+            exit 0
+          fi
+
+          gh pr merge "$PR" --disable-auto || true
+          marker="<!-- dependabot-manual-review -->"
+          if gh pr view "$PR" --json comments --jq '.comments[].body' | grep -qF "$marker"; then
+            echo "Already reported."
+            exit 0
+          fi
+          gh pr edit "$PR" --add-assignee "$OWNER"
+          gh pr comment "$PR" --body "$marker
+          @$OWNER Update type \`${types:-unknown}\` is not merged automatically. Please review it."
+
+  report-failure:
+    name: Report failed checks
+    if: >-
+      github.event_name == 'workflow_run'
+      && github.event.workflow_run.event == 'pull_request'
+      && github.event.workflow_run.actor.login == 'dependabot[bot]'
+      && github.event.workflow_run.conclusion != 'success'
+      && github.event.workflow_run.conclusion != 'skipped'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      PR: ${{ github.event.workflow_run.pull_requests[0].number }}
+      SHA: ${{ github.event.workflow_run.head_sha }}
+      CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+      RUN_URL: ${{ github.event.workflow_run.html_url }}
+      OWNER: ${{ github.repository_owner }}
+    steps:
+      - name: Assign and mention the owner
+        run: |
+          if [[ -z "$PR" ]]; then
+            echo "::error::No pull request found for run $RUN_URL"
+            exit 1
+          fi
+          gh pr edit "$PR" --add-assignee "$OWNER"
+          gh pr comment "$PR" --body "@$OWNER Validate finished with \`$CONCLUSION\` \
+          for $SHA, so this update is not merged: $RUN_URL"
